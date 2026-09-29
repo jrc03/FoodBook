@@ -133,3 +133,61 @@ at the boundary means the service does not re-check it.
 - Leave `public partial class Program;` at the end of `Program.cs`. Integration
   tests need it for `WebApplicationFactory<Program>`.
 - Add endpoints to `FoodBook.http` as you build them.
+
+---
+
+## 7. Git workflow
+
+`develop` is the integration branch. `main` only ever holds promoted, working
+releases.
+
+| Branch | Rule |
+|---|---|
+| `develop` | Everyone lands here, through a PR. Never push to it directly. |
+| `main` | Promoted from `develop` only. Never commit to it directly. |
+| `feature/...` | One per person, per slice. Yours alone. |
+
+### Naming
+
+`feature/<person>-<slice>` — e.g. `feature/jrc-users-auth`. The person prefix
+keeps ownership readable in `git branch -a` and stops two people from landing on
+the same generic name, like `feature/users`.
+
+### Opening one
+
+Branch from an up-to-date `develop`, and push the new branch to `origin`
+immediately — even while it is still empty. A branch that only exists on your
+laptop is invisible to the rest of the team, so nobody knows to stay off the
+files you are about to touch.
+
+### Opening a PR
+
+Open a PR into `develop` as soon as a slice is coherent — not one commit at a
+time, and not after a month. A PR is ready when:
+
+- it does one thing (RF01 end to end, not "user stuff"),
+- `dotnet test` passes locally,
+- you are stopping for the day.
+
+Frequency is the whole point. A long-lived branch is exactly what creates the
+conflicts you are trying to avoid: the longer it lives, the further it drifts
+from `develop` and the bigger the merge gets. Small PRs stay trivial to review.
+
+### Staying current
+
+Rebase onto `origin/develop` at the start of each work session and again before
+pushing — rebase, not merge, so your branch history stays linear and readable.
+Doing that on a private branch you own is safe and costs nobody a merge commit.
+
+**Never force-push to `develop` or `main`.** Someone else's commits sit on top
+of them, and force-pushing is how work disappears.
+
+### Before merging
+
+- One reviewer checks the PR against the rules in this file.
+- Prefer squash-merge into `develop`, so its history reads as a list of
+  finished slices rather than a diary. Do this now, while `main` and `develop`
+  are still the same commit — once they diverge, `develop` history is fixed.
+- If a PR is red, fix it on the same branch and push again. Never merge red and
+  repair it later: `develop` is where everyone starts, so a broken `develop`
+  blocks every other person immediately.

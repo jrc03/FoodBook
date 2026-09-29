@@ -1,0 +1,5 @@
+@host = http://localhost:5245
+
+### Placeholder. Add requests for your endpoints here as you build them.
+GET {{host}}/swagger/v1/swagger.json
+Accept: application/json

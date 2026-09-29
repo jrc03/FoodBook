@@ -72,17 +72,27 @@ Versions live in `Directory.Packages.props` (Central Package Management);
 `Directory.Build.props`. **Never put a `Version` attribute on a
 `PackageReference`** — add a `PackageVersion` entry instead.
 
-### AutoMapper is pinned to 14.0.0 — do not upgrade casually
+### AutoMapper is pinned to 15.1.3 — do not downgrade
 
-- 14.0.0 is the last MIT release. **15.0.0+ requires a paid license key**, and
-  the `AddAutoMapper` overloads change shape.
-- 14.0.0 carries NU1903 / CVE-2026-32933 (uncontrolled recursion DoS, CVSS 7.5).
-  It needs a ~25,000-level-deep object graph, so it is not reachable at
-  coursework scale. The patch, 15.1.1+, is license-gated.
-
-Upgrading means registering for Lucky Penny's free Community License (student
-coursework) and passing `cfg.LicenseKey` in
-`Application/DependencyInjection.cs`.
+- 14.0.0 was the last MIT release and carries **CVE-2026-32933** (uncontrolled
+  recursion DoS, CVSS 7.5), which NuGet flags as NU1903 on every restore. 15.1.1
+  is the fix; we sit on 15.1.3.
+- **15.0.0+ is license-gated**, but enforcement is log-only: a missing key logs
+  one WARNING under category `LuckyPennySoftware.AutoMapper.License`. Nothing
+  degrades, there is no license server, and no feature is disabled. **Do not
+  paper over this by downgrading to 14.0.0 to silence the warning.**
+- 15.x changed `AddAutoMapper`: every overload now takes a config action first,
+  which is why the call reads `AddAutoMapper(_ => { }, assembly)`. The empty
+  action is required, not dead code — do not remove it.
+- The key is picked up automatically from `AUTOMAPPER_LICENSE_KEY` or
+  `LUCKYPENNY_LICENSE_KEY` when set in the environment, so no code change is
+  needed. Lucky Penny offers a **free Community License for student
+  coursework**. For a production key, set `cfg.LicenseKey` in
+  `Application/DependencyInjection.cs` — never commit the value.
+- 16.x also patches the CVE and supports net9.0, but it drags
+  `Microsoft.Extensions.* 10.0.0` into a net9.0 app that already resolves those
+  from the ASP.NET 9 shared framework. 15.1.3 depends on 8.0.0 instead, which
+  stays inside the major range. Revisit when the project moves to net10.
 
 FluentValidation 12.1.1 is still Apache 2.0 — free, no constraints.
 `FluentValidation.DependencyInjectionExtensions` is required for

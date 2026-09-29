@@ -10,7 +10,7 @@ public static class DependencyInjection
     {
         var assembly = typeof(DependencyInjection).Assembly;
 
-        services.AddAutoMapper(assembly);
+        services.AddAutoMapper(_ => { }, assembly);
         services.AddValidatorsFromAssembly(assembly);
 
         return services;

@@ -1,0 +1,33 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup Label="Persistence">
+    <!-- InMemory provider. Swap to Npgsql/SqlServer + real Migrations when you need durability. -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.20" />
+  </ItemGroup>
+
+  <ItemGroup Label="Mapping and validation">
+    <!-- 14.0.0 is the last MIT-licensed version. AutoMapper 15.0.0+ requires a paid commercial license key. -->
+    <PackageVersion Include="AutoMapper" Version="14.0.0" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <!-- Provides AddValidatorsFromAssembly() for Microsoft.Extensions.DependencyInjection. -->
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Api">
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.20" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup Label="Testing">
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageVersion Include="xunit" Version="2.9.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+</Project>

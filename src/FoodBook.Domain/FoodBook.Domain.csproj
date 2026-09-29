@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>FoodBook.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <!--
+    FoodBook.Domain is the innermost layer of the onion.
+    It must NEVER reference any other project or NuGet package.
+    Entities are plain data holders here: public getters/setters, no behavior.
+  -->
+
+</Project>

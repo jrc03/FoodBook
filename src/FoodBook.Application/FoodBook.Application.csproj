@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>FoodBook.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodBook.Domain\FoodBook.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+  </ItemGroup>
+
+  <!--
+    FoodBook.Application declares the interfaces it needs (Interfaces/).
+    It must NEVER reference FoodBook.Infrastructure or FoodBook.WebApi:
+    that is the dependency inversion that keeps the onion intact.
+  -->
+
+</Project>

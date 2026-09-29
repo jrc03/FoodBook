@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>FoodBook.WebApi</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodBook.Application\FoodBook.Application.csproj" />
+    <ProjectReference Include="..\FoodBook.Infrastructure\FoodBook.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+
+  <!--
+    FoodBook.WebApi is the outermost layer: HTTP only.
+    Controllers must not contain business rules, and must not touch EF Core directly.
+  -->
+
+</Project>

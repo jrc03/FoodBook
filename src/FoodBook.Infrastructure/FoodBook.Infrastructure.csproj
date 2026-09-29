@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>FoodBook.Infrastructure</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodBook.Application\FoodBook.Application.csproj" />
+    <ProjectReference Include="..\FoodBook.Domain\FoodBook.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+  </ItemGroup>
+
+  <!--
+    Infrastructure implements the interfaces declared in FoodBook.Application.
+    Everything concrete (EF Core, repositories, external services) lives here.
+  -->
+
+</Project>
